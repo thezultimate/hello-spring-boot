@@ -1,14 +1,18 @@
 sudo: required
-
 language: java
-
 dist: trusty
-
 jdk:
-  - openjdk8
-
+- openjdk8
 services:
-  - docker
-
+- docker
 after_success:
-  - ls -al build/libs
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+- export IMAGE_NAME=thezultimate/hello-spring-boot
+- docker build -t $IMAGE_NAME:$COMMIT .
+- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME
+env:
+  global:
+  - secure: SYQltzOzBqfgePEr3RfgBI7262FTBuY8K/aky2nvP96jyIXcV+Sq07QP3XsoonO1n88HhEmtFgA7Bdh3QQOj7HSi0Lrq7kVFigfaa36XZnI/47JeSwjHHCYXpJ+FhxSyCrm2C8iwN6BFbv0MEHpRTQlt7xSl+wxaj7Do9h7B7XXoNMkSv+tKXK3GPcMFlPiQOWgWLjc8THlGFuw30RAL6mKvJCBTHK+5Ip6qH1elq7OPPDfBVxpW/DVNQUu01uUx5XsMTJx9PSX61+Ac3Z/7OpZ/1E/MXZx2pw5rEMBWL1KmZ7pY89rx3/M92REVDlVWSz7yc/HiCiHZDFCiV9bJ94MC8SID+HgcYDV47SuVNgbbmcuJx7ylTZAjeJ/nYN37lHwFGPbynfyKzpMdenP7CyBRQxPAG1awItCAORwEun4rwVV8Z565lFFRx+LQShL3ebgSiTG2gDsPFpTtYdHN2Icynb2kGaKf+pIiE4V6jgWgFLqmWKuU9GQxjcC99Go6wEY+S0vbb+Rx8ZgZpVt5Sw8u6nMzFEpOjwgzMHV8DVOhlzyKXI/H90GSfOCdyNsJ2TBj4wl3vKCrL2+FTLHhlSd4+ZNAbl9zzR+4romSnybcSpLdxVkgzXlpoMENGbAyn2a/OVp15DpK9IkU2RO60hGoDzswSqQeiIoXMrZaJMU=
+  - secure: aDO4KRzjkc0mMiaNg1FNFXNiJUZrI4/86MPPD3zd/tTaBltVKYxFpcgRreGRUWq4ZJcLmqqyt8T2Zbw93xHEPbcMp6Zbk/YpV2woVE5vQ+cPkX1tG1anxTvH3xR+oRAulSJH9OonLqjw/kuD/VUt2bjzZkMels3nriGQ+pBzaOwLsjbv20lZZrlfFxEB4lv89m10EwAP1DwXehd8I27mH1QVPc/IaJ0P0ZluUuPBuVIDKlaKAcalys8KUTt138ILYaHoZVdCuYxIZE/+l7jAh27toJP16YCIB2C7WCBeogWH3k2X1S4fXh3KtCbsFNjaCv4gNJzxMWBCuDuj8OjrDkX8DM3AcrACETXCvDh42mKp6VFcUZezpvLSOUf91Kdro+fg2ZX7jGVKhLt5v7uoZH1G4XIxvt6FAJzy9ACl8R+sql7OSBgYsGNl3nJfiZ5XYBUgNtaLaHl6UQT74Cwu+Xvcp/hUDjatxR5/TOJ+CnsjOzJ4UV+Oh7rvCIwZTN4NcSbimJ5wS5lwzb5U3omzymCyM1/DuNRCeYiG1aIkA2dLEA90/G7POLUfmRLMTxH/0i5+0ZWNP70g/tnAnxAuyQFg3tLyU6vBqw28HK1qzD96F0T70oseAoDquWLsomkM2P/S/IHyShX9HgYD7mnTs0xWZYTP4XOAnpN6hdWBFDE=
