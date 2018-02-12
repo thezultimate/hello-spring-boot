@@ -1,3 +1,11 @@
+sudo: required
+
 language: java
+
+dist: trusty
+
 jdk:
-  - oraclejdk8
+  - openjdk8
+
+services:
+  - docker
