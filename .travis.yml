@@ -11,5 +11,4 @@ services:
   - docker
 
 after_success:
-  - ls -al
-  - ls -al build
+  - ls -al build/libs
