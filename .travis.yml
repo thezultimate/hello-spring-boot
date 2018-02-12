@@ -9,3 +9,7 @@ jdk:
 
 services:
   - docker
+
+after_success:
+  - ls -al
+  - ls -al build
