@@ -29,3 +29,6 @@ nbdist/
 gradle/wrapper
 gradlew.bat
 gradlew
+
+# Travis
+travis.log
