@@ -1,6 +1,6 @@
 ## Hello Spring Boot
 
-This hello world Web app is created solely for learning/testing Travis CI.
+This hello world Web app is created solely for learning/testing [Travis CI](https://travis-ci.org/).
 
 The `.travis.yml` file contains two global environment variables, `DOCKER_USER` and `DOCKER_PASS`, that are used to 
 login to [Docker Hub](https://hub.docker.com/) to push the created Docker image. These variables (after the `secure:` 
