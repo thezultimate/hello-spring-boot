@@ -6,16 +6,9 @@ jdk:
 services:
 - docker
 after_success:
-- pwd
-- ls -al build/
-- ls -al build/libs/
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- ls -al build/
-- ls -al build/libs/
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
 - export IMAGE_NAME=thezultimate/hello-spring-boot
-- echo $TAG
-- echo $IMAGE_NAME
 - docker build -t $IMAGE_NAME:$TAG .
 - docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:$TAG
 - docker push $IMAGE_NAME
